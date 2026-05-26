@@ -1,3 +1,90 @@
-<html>
-  <p>mangoes</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter-Strike 1.6 - Play In Browser</title>
+    <script src="coi-serviceworker.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #161616;
+            font-family: Arial, sans-serif;
+        }
+        #canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        #loading-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            text-align: center;
+            z-index: 10;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border-left-color: #de9b35;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+        #status {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="status">Downloading Game Assets...</div>
+    </div>
+
+    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+
+    <script type="text/javascript">
+        // Your custom GitHub Release asset link
+        const ASSET_ZIP_URL = "https://github.com/coolcoconut45/coolcoconut45.github.io/releases/download/mango/valve.zip";
+
+        var Module = {
+            canvas: document.getElementById('canvas'),
+            setStatus: function(text) {
+                const statusEl = document.getElementById('status');
+                const overlayEl = document.getElementById('loading-overlay');
+                if (text) {
+                    statusEl.innerHTML = text;
+                } else {
+                    // Hide the spinner layout once everything has loaded up
+                    overlayEl.style.display = 'none';
+                }
+            },
+            // WebAssembly parameters pointing straight to your file host
+            arguments: [
+                '-game', 'cstrike',
+                '-pkg', ASSET_ZIP_URL,
+                '-w', window.innerWidth.toString(),
+                '-h', window.innerHeight.toString()
+            ],
+            print: console.log,
+            printErr: console.error
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/xash3d-fwgs@latest/dist/raw.js"></script>
+</body>
 </html>
