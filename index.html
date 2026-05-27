@@ -24,7 +24,7 @@
 
     async function main() {
         const files = {}
-        const res = await fetch('https://github.com/coolcoconut435/coolcoconut435.github.io/releases/download/mango/valve.zip')
+        const res = await fetch('https://www.dropbox.com/scl/fi/4ui4pf4kvagj7avw7896m/valve.zip?rlkey=t6dfui5br65pxwaz88vd6t7ux&st=96yvfvux&dl=1')
         const zip = await JSZip.loadAsync(await res.arrayBuffer());
 
         await Promise.all(Object.keys(zip.files).map(async p => {
