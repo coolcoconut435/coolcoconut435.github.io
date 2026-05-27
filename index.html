@@ -3,71 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cool Website</title>
+    <title>Counter-Strike 1.6 - Play In Browser</title>
+    <!-- Security key: MUST be the first script -->
     <script src="coi-serviceworker.js"></script>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #161616;
-            font-family: Arial, sans-serif;
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            overflow: hidden; background-color: #161616; font-family: Arial, sans-serif;
         }
-        #canvas {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-        }
+        #canvas { width: 100vw; height: 100vh; display: block; }
         #loading-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ffffff;
-            text-align: center;
-            z-index: 10;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); color: #ffffff; text-align: center; z-index: 10;
         }
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border-left-color: #de9b35;
-            animation: spin 1s linear infinite;
+            border: 4px solid rgba(255, 255, 255, 0.1); width: 60px; height: 60px;
+            border-radius: 50%; border-left-color: #de9b35; animation: spin 1s linear infinite;
             margin: 0 auto 20px auto;
         }
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
-        #status {
-            font-size: 18px;
-            letter-spacing: 1px;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #status { font-size: 18px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
+    <!-- Loading Screen -->
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <div id="status">Downloading Game Assets...</div>
+        <div id="status">Downloading Mangoes</div>
     </div>
 
+    <!-- The Game Screen -->
     <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 
+    <!-- Engine Configuration -->
     <script type="text/javascript">
-        // Your custom GitHub Release asset link
+        // The URL must stay wrapped inside these quotation marks
         const ASSET_ZIP_URL = "https://www.dropbox.com/scl/fi/4ui4pf4kvagj7avw7896m/valve.zip?rlkey=t6dfui5br65pxwaz88vd6t7ux&st=21i8wfbx&dl=1";
 
         var Module = {
-            print: function(text) {
-    console.log("ENGINE LOG: " + text);
-},
-printErr: function(text) {
-    console.error("ENGINE ERROR: " + text);
-}
             canvas: document.getElementById('canvas'),
             setStatus: function(text) {
                 const statusEl = document.getElementById('status');
@@ -75,11 +49,9 @@ printErr: function(text) {
                 if (text) {
                     statusEl.innerHTML = text;
                 } else {
-                    // Hide the spinner layout once everything has loaded up
                     overlayEl.style.display = 'none';
                 }
             },
-            // WebAssembly parameters pointing straight to your file host
             arguments: [
                 '-game', 'cstrike',
                 '-pkg', ASSET_ZIP_URL,
@@ -91,6 +63,11 @@ printErr: function(text) {
         };
     </script>
 
+    <!-- Zip Extraction Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Core Xash3D Engine -->
     <script src="https://cdn.jsdelivr.net/npm/xash3d-fwgs@latest/dist/raw.js"></script>
+
 </body>
 </html>
+
