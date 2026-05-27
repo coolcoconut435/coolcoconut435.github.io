@@ -62,6 +62,12 @@
         const ASSET_ZIP_URL = "https://www.dropbox.com/scl/fi/4ui4pf4kvagj7avw7896m/valve.zip?rlkey=t6dfui5br65pxwaz88vd6t7ux&st=21i8wfbx&dl=0";
 
         var Module = {
+            print: function(text) {
+    console.log("ENGINE LOG: " + text);
+},
+printErr: function(text) {
+    console.error("ENGINE ERROR: " + text);
+}
             canvas: document.getElementById('canvas'),
             setStatus: function(text) {
                 const statusEl = document.getElementById('status');
